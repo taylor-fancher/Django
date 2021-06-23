@@ -10,4 +10,12 @@ def new(response):
 def create(response):
     return redirect('/')
 
+def number(response, number):
+    return HttpResponse(f'placeholder to display blog number: {number}')
+
+def edit(response, number):
+    return HttpResponse(f'placeholder to edit blog number {number}')
+
+def destroy(response, number):
+    return redirect('/')
 # Create your views here.
