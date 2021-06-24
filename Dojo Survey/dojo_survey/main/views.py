@@ -6,7 +6,7 @@ def index(request):
 def submit(request):
     request.session['name'] = request.POST['name']
     request.session['location'] = request.POST['location']
-    request.sessiong['language'] = request.POST['language']
+    request.session['language'] = request.POST['language']
     return redirect('/results')
 
 def results(request):
