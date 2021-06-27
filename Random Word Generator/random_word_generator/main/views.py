@@ -1,8 +1,9 @@
-from django.shortcuts import render, get_random_string
+from django.shortcuts import render
+from django.utils.crypto import get_random_string
 
 def index(request):
-    return render(response, 'index.html')
+    return render(request, 'index.html')
 
 def random(request):
-    request.session
+    pass
 # Create your views here.
