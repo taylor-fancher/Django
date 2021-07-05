@@ -1,0 +1,31 @@
+$ python manage.py shell
+Python 3.6.4 (v3.6.4:d48eceb, Dec 19 2017, 06:54:40) [MSC v.1900 64 bit (AMD64)]
+ on win32
+Type "help", "copyright", "credits" or "license" for more information.
+(InteractiveConsole)
+>>> from users.models import *
+>>> User.objects.create(first_name='Bob',last_name='Smith')
+<User: User object (1)>
+>>> User.objects.create(first_name='Sam',last_name='Cooper')
+<User: User object (2)>
+>>> User.objects.create(first_name='Alex',last_name='Ruiz')
+<User: User object (3)>
+>>> User.objects.all()
+<QuerySet [<User: User object (1)>, <User: User object (2)>, <User: User object
+(3)>]>
+>>> User.objects.last()
+<User: User object (3)>
+>>> User.objects.first()
+<User: User object (1)>
+>>> c = User.objects.get(id=3)
+>>> c.last_name='Pancakes'
+>>> c.save()
+>>> delete_this_user = User.objects.get(id=2)
+>>> delete_this_user.delete
+<bound method Model.delete of <User: User object (2)>>
+>>> User.objects.all().order_by('first_name')
+<QuerySet [<User: User object (3)>, <User: User object (1)>, <User: User object
+(2)>]>
+>>> User.objects.all().order_by('-first_name')
+<QuerySet [<User: User object (2)>, <User: User object (1)>, <User: User object
+(3)>]>
