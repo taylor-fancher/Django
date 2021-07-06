@@ -9,6 +9,16 @@
     <title>About This Author</title>
 </head>
 <body>
-    
+    <div class="container">
+        <h1>{{this_author.first_name}} {{this_author.last_name}}</h1>
+        <h3>Notes:</h3>
+        <p>{{this_author.notes}}</p>
+        <h3>Books</h3>
+        <ul>
+            {% for book in this_author.books %}
+            <li>{{book.title}}</li>
+            {% endfor %}
+        </ul>
+    </div>
 </body>
 </html>
