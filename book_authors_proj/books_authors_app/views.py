@@ -46,7 +46,14 @@ def create_author(request):
 
 def this_author(request, id):
     context = {
-        'this_author': Author.objects.get(id=id)
+        'this_author': Author.objects.get(id=id),
+        'books': Book.objects.all
     }
     return render(request, 'this_author.html', context)
+
+def add_book(request):
+    this_author = Author.objects.get(id=request.POST['author'])
+    this_book = Book.objects.get(id=request.POST['book'])
+    this_author.books.add(this_book)
+    return redirect(f'/author/{this_author.id}')
 # Create your views here.
