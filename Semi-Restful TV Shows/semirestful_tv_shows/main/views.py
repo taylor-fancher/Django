@@ -16,8 +16,20 @@ def one_show(request, id):
     }
     return render(request,'one_show.html', context)
 
-def edit_show(request):
-    pass
+def update(request, id):
+    this_show = Show.objects.get(id=id)
+    this_show.title = request.POST['title']
+    this_show.network = request.POST['network']
+    this_show.release_date = request.POST['release_date']
+    this_show.desc = request.POST['desc']
+    this_show.save()
+    return redirect(f'/shows/{this_show.id}')
+
+def edit_show(request, id):
+    context = {
+        'this_show': Show.objects.get(id=id)
+    }
+    return render(request, 'edit_show.html', context)
 
 def delete_show(request, id):
     show = Show.objects.get(id=id)
