@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import *
+from .models import Show
 
 def index(request):
     return render(request, 'index.html')
@@ -20,7 +20,16 @@ def delete_show(request):
     pass
 
 def add_show(request):
-    pass
+    return render(request, 'new_show.html')
+
+def create(request):
+    show = Show.objects.create(
+        title = request.POST['title'],
+        network = request.POST['network'],
+        release_date = request.POST['release_date'],
+        desc =  request.POST['desc']
+    )
+    return redirect('/shows')
 
 
 # Create your views here.
