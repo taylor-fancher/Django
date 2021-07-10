@@ -10,8 +10,11 @@ def shows(request):
     }
     return render(request, 'shows.html', context)
 
-def one_show(request):
-    pass
+def one_show(request, id):
+    context = {
+        'this_show': Show.objects.get(id=id)
+    }
+    return render(request,'one_show.html', context)
 
 def edit_show(request):
     pass
