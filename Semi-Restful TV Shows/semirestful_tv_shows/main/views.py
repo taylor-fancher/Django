@@ -19,8 +19,10 @@ def one_show(request, id):
 def edit_show(request):
     pass
 
-def delete_show(request):
-    pass
+def delete_show(request, id):
+    show = Show.objects.get(id=id)
+    show.delete()
+    return redirect('/shows')
 
 def add_show(request):
     return render(request, 'new_show.html')
