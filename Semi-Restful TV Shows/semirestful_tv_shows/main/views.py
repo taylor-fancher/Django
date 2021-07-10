@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from .models import Show
 
 def index(request):
-    return render(request, 'index.html')
+    return redirect('/shows')
 
 def shows(request):
     context = {
