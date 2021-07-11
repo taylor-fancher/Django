@@ -19,6 +19,18 @@ def one_show(request, id):
     return render(request,'one_show.html', context)
 
 def update(request, id):
+    errors = Show.objects.basic_validator(request.POST)
+
+    if len(errors) > 0:
+        for k, v in errors.items():
+            messages.error(request, v)
+        return redirect(f'/shows/{id}/edit')
+
+    title = request.POST['title']
+    network = request.POST['network']
+    release_date = request.POST['release_date']
+    desc = request.POST['desc']
+
     this_show = Show.objects.get(id=id)
     this_show.title = request.POST['title']
     this_show.network = request.POST['network']
