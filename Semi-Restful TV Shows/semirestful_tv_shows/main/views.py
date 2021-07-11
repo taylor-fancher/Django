@@ -27,7 +27,7 @@ def update(request, id):
 
 def edit_show(request, id):
     context = {
-        'this_show': Show.objects.get(id=id)
+        'this_show': Show.objects.get(id=id),
     }
     return render(request, 'edit_show.html', context)
 

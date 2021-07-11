@@ -21,7 +21,7 @@
         <label for="network" class="form-label">Network:</label>
         <input type="text" class="form-control" name='network' value='{{this_show.network}}'>
         <label for="release_date" class="form-label">Release Date:</label>
-        <input type="date" class="form-control" name='release_date' value='{{this_show.release_date}}'>
+        <input type="date" class="form-control" name='release_date' value='{{this_show.release_date|date:'Y-m-d'}}'>
         <label for="desc" class="form-label">Description:</label>
         <input type="text" class="form-control" name='desc' value='{{this_show.desc}}'>
         <input type="submit" class='mt-3'>
