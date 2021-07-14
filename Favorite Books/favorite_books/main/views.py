@@ -76,4 +76,24 @@ def one_book(request, id):
     }
     return render(request, 'one_book.html', context)
 
+def edit_book(request, id):
+    context = {
+        'book': Book.objects.get(id=id),
+        'user': User.objects.get(id=request.session['log_user_id']),
+    }
+    return render(request, 'edit_book.html', context)
+
+def edit(request, id):
+    errors = Book.objects.book_validator(request.POST)
+
+    if len(errors) > 0:
+        for k, v in errors.items():
+            messages.error(request, v)
+        return redirect('/dashboard')
+    
+    this_book = Book.objects.get(id=id)
+    this_book.title = request.POST['title']
+    this_book.desc = request.POST['desc']
+    this_book.save()
+    return redirect(f'/books/{this_book.id}')
 # Create your views here.
