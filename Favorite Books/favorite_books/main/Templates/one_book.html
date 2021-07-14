@@ -23,6 +23,7 @@
                 <li>{{user.first_name}} {{user.last_name}}</li>
                 {% endfor %}
             </ul>
+            <a href="/book/{{this_book.id}}/favorite">Favorite</a> | <a href="/book/{{this_book.id}}/edit">Edit</a> | <a href="/book/{{this_book.id}}/delete">Delete</a>
         </div>
     </div>
 </body>

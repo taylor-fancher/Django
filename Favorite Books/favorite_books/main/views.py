@@ -65,7 +65,7 @@ def create_book(request):
         title = request.POST['title'],
         desc = request.POST['desc'],
         uploaded_by = User.objects.get(id=request.POST['user']),
-
+        #liked_by = User.objects.set(id=request.POST['user'])
     )
     return redirect('/dashboard')
 
@@ -96,4 +96,15 @@ def edit(request, id):
     this_book.desc = request.POST['desc']
     this_book.save()
     return redirect(f'/books/{this_book.id}')
+
+def favorite(request, id):
+    this_user = User.objects.get(id=request.session['log_user_id'])
+    this_book = Book.objects.get(id=id)
+    this_user.liked_books.add(this_book)
+    return redirect(f'/book/{this_book.id}')
+
+def delete(request, id):
+    book = Book.objects.get(id=id)
+    book.delete()
+    return redirect('/dashboard')
 # Create your views here.
