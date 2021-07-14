@@ -10,10 +10,17 @@
 <body>
     <div class="container">
         <h1>Welcome {{user.first_name}}</h1>
-        <a href="/logout">Logout</a>
+        <a href="/your_favorites">Your Favorite Books</a> | <a href="/logout">Logout</a>
         <div class="row">
             <div class="add_book col-md-6">
                 <h3>Add a Favorite Book</h3>
+                {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                    <li {% if message.tags %} class='{{message.tags}}' {% endif %}>{{message}}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
                 <form action="/create_book" method='POST'>
                     {% csrf_token %}
                     <input type="hidden" name='user' value='{{user.id}}'>
@@ -31,6 +38,9 @@
                 <p>(added by {{book.uploaded_by.first_name}})</p>
                 {% if user in book.liked_by.all %}
                 <p>This is one of your favorite books!</p>
+                {% endif %}
+                {% if user not in book.liked_by.all %}
+                <p><a href="/book/{{book.id}}/favorite">Add to Favorites</a></p>
                 {% endif %}
                 {% endfor %}
             </div>

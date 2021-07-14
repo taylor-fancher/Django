@@ -81,6 +81,21 @@ def edit_book(request, id):
         'book': Book.objects.get(id=id),
         'user': User.objects.get(id=request.session['log_user_id']),
     }
+
+    book = Book.objects.get(id=id)
+
+    if request.session['log_user_id'] != book.uploaded_by.id:
+        return render(request, 'sorry.html', context)
+
+
+
+    errors = Book.objects.book_validator(request.POST)
+
+    if len(errors) > 0:
+        for k, v in errors.items():
+            messages.error(request, v)
+        return redirect('/dashboard')
+
     return render(request, 'edit_book.html', context)
 
 def edit(request, id):
@@ -107,4 +122,10 @@ def delete(request, id):
     book = Book.objects.get(id=id)
     book.delete()
     return redirect('/dashboard')
+
+def your_favorites(request):
+    context = {
+        'user': User.objects.get(id=request.session['log_user_id'])
+    }
+    return render(request, 'your_favorites.html', context)
 # Create your views here.
