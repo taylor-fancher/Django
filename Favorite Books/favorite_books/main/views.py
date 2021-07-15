@@ -90,12 +90,12 @@ def edit_book(request, id):
 
 
 
-    errors = Book.objects.book_validator(request.POST)
+    # errors = Book.objects.book_validator(request.POST)
 
-    if len(errors) > 0:
-        for k, v in errors.items():
-            messages.error(request, v)
-        return redirect(f'/books/{book.id}/edit')
+    # if len(errors) > 0:
+    #     for k, v in errors.items():
+    #         messages.error(request, v)
+    #     return redirect(f'/books/{book.id}/edit')
 
     return render(request, 'edit_book.html', context)
 
