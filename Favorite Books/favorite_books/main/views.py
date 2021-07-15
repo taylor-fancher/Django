@@ -65,8 +65,9 @@ def create_book(request):
         title = request.POST['title'],
         desc = request.POST['desc'],
         uploaded_by = User.objects.get(id=request.POST['user']),
-        #liked_by = User.objects.set(id=request.POST['user'])
     )
+    book.liked_by.add(request.POST[user])
+    
     return redirect('/dashboard')
 
 def one_book(request, id):
@@ -94,7 +95,7 @@ def edit_book(request, id):
     if len(errors) > 0:
         for k, v in errors.items():
             messages.error(request, v)
-        return redirect('/dashboard')
+        return redirect(f'/books/{book.id}/edit')
 
     return render(request, 'edit_book.html', context)
 
@@ -128,4 +129,11 @@ def your_favorites(request):
         'user': User.objects.get(id=request.session['log_user_id'])
     }
     return render(request, 'your_favorites.html', context)
+
+def unfavorite(request, id):
+    this_user = User.objects.get(id=request.session['log_user_id'])
+    this_book = Book.objects.get(id=id)
+    this_user.liked_books.remove(this_book)
+    return redirect('/your_favorites')
+
 # Create your views here.

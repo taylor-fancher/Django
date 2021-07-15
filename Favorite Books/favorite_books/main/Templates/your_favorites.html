@@ -15,7 +15,7 @@
             <h1>Your Favorite Books, {{user.first_name}}</h1>
             <ul>
                 {% for book in user.liked_books.all %}
-                <li>{{book.title}}</li>
+                <li>{{book.title}} | <a href="/book/{{book.id}}/unfavorite">Unfavorite</a></li>
                 {% endfor %}
             </ul>
         </div>
