@@ -24,7 +24,7 @@ def register(request):
 def new_user(request):
     errors = User.objects.user_validator(request.POST)
 
-    user = User.objects.filer(email=request.POST['email'])
+    user = User.objects.filter(email=request.POST['email'])
     if user:
         messages.error(request, 'Email already exists.')
         return redirect('/register')
@@ -34,7 +34,7 @@ def new_user(request):
             messages.error(request, value)
         return redirect('/register')
     
-    hashed_pw = bcrypt.hashpw(request.POST['password'].encode(), bcrpyt.gensalt()).decode()
+    hashed_pw = bcrypt.hashpw(request.POST['password'].encode(), bcrypt.gensalt()).decode()
 
     user1 = User.objects.create(
         name = request.POST['name'],
@@ -49,7 +49,7 @@ def dashboard(request):
     context = {
         'user': User.objects.get(id=request.session['log_user_id']),
         'books': Book.objects.all(),
-        'reviews': Review.objects.latest('created_at')[:3]
+        #'reviews': Review.objects.latest('created_at')[:3]
     }
     return render(request, 'dashboard.html', context)
 # Create your views here.

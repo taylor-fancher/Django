@@ -62,7 +62,7 @@ class Review(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     created_by = models.ForeignKey(User, related_name='created_reviews', on_delete = models.CASCADE)
-    review_of = models.ForeignKey(Book, related_name='book_reviews')
+    review_of = models.ForeignKey(Book, related_name='book_reviews', on_delete= models.CASCADE)
 
 
 # Create your models here.
