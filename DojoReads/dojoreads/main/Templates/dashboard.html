@@ -14,11 +14,19 @@
         <p><a href="/add_book_with_review">Add Book and Review</a> | <a href="/logout">Logout</a></p>
         <div class="row">
             <div class="recent_reviews col-md-7">
-                
+                {% for review in reviews %}
+                <a href="/book/{{review.review_of.id}}">{{review.review_of.title}}</a>
+                <ul style = 'list-style-type: none;'>
+                    <li>{{review.rating}}/5</li>
+                    <li>{{review.reviewed_by.alias}} says: {{review.reviewed_by.review}}</li>
+                    <li>Posted on {{review.created_at|date:'B d y'</li>
+                </ul>
+                {% endfor %}
             </div>
             <div class="other_books col-md-5">
                 {% for book in books %}
                 <a href="/book/{{book.id}}">{{book.title}}</a>
+                {% endfor %}
             </div>
         </div>
     </div>
