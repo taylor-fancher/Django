@@ -64,9 +64,9 @@ def create_book(request):
     book = Book.objects.create(
         title = request.POST['title'],
         desc = request.POST['desc'],
-        uploaded_by = User.objects.get(id=request.POST['user']),
+        uploaded_by = User.objects.get(id=request.session['log_user_id']),
     )
-    book.liked_by.add(request.POST[user])
+    book.liked_by.add(request.POST['user'])
     
     return redirect('/dashboard')
 
