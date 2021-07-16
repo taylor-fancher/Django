@@ -18,14 +18,16 @@
                 <a href="/book/{{review.review_of.id}}">{{review.review_of.title}}</a>
                 <ul style = 'list-style-type: none;'>
                     <li>{{review.rating}}/5</li>
-                    <li>{{review.reviewed_by.alias}} says: {{review.reviewed_by.review}}</li>
-                    <li>Posted on {{review.created_at|date:'B d y'</li>
+                    <li>{{review.created_by.alias}} says: {{review.review}}</li>
+                    <li>Posted on {{review.created_at}}</li>
                 </ul>
                 {% endfor %}
             </div>
             <div class="other_books col-md-5">
                 {% for book in books %}
-                <a href="/book/{{book.id}}">{{book.title}}</a>
+                <ul class="list-style-type-none">
+                <li><a href="/book/{{book.id}}">{{book.title}}</a></li>
+                </ul>
                 {% endfor %}
             </div>
         </div>

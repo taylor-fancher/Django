@@ -49,7 +49,42 @@ def dashboard(request):
     context = {
         'user': User.objects.get(id=request.session['log_user_id']),
         'books': Book.objects.all(),
-        #'reviews': Review.objects.latest('created_at')[:3]
+        'reviews': Review.objects.all()
     }
     return render(request, 'dashboard.html', context)
+
+def add_book_review(request):
+    context = {
+        'user': User.objects.get(id=request.session['log_user_id'])
+    }
+    return render(request, 'add_book_review.html', context)
+
+def create_book_review(request):
+    errors = Book.objects.book_validator(request.POST)
+
+    if len(errors) > 0:
+        for key, value in errors.items():
+            messages.error(request,value)
+        return redirect('/add_book_review')
+    
+    book1 = Book.objects.create(
+        title = request.POST['title'],
+        author = request.POST['author'],
+    )
+    #request.session['book_id'] = book1.id
+
+    errors = Review.objects.review_validator(request.POST)
+
+    if len(errors) > 0:
+        for key, value in errors.items():
+            messages.error(request,value)
+        return redirect('/add_book_review')
+    
+    review = Review.objects.create(
+        review = request.POST['review'],
+        rating = request.POST['rating'],
+        created_by = User.objects.get(id=request.session['log_user_id']),
+        review_of = Book.objects.get(id=book1.id)
+    )
+    return redirect ('/dashboard')
 # Create your views here.
