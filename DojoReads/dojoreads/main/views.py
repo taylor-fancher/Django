@@ -49,7 +49,7 @@ def dashboard(request):
     context = {
         'user': User.objects.get(id=request.session['log_user_id']),
         'books': Book.objects.all(),
-        'reviews': Review.objects.all()
+        'reviews': Review.objects.order_by('-created_at')[:3]
     }
     return render(request, 'dashboard.html', context)
 
@@ -87,4 +87,11 @@ def create_book_review(request):
         review_of = Book.objects.get(id=book1.id)
     )
     return redirect ('/dashboard')
+
+def one_book(request, id):
+    context = {
+        'user': User.objects.get(id=request.session['log_user_id']),
+        'book': Book.objects.get(id=id),
+    }
+    return render(request, 'one_book.html', context)
 # Create your views here.
