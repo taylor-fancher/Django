@@ -71,7 +71,6 @@ def create_book_review(request):
         title = request.POST['title'],
         author = request.POST['author'],
     )
-    #request.session['book_id'] = book1.id
 
     errors = Review.objects.review_validator(request.POST)
 
@@ -94,4 +93,22 @@ def one_book(request, id):
         'book': Book.objects.get(id=id),
     }
     return render(request, 'one_book.html', context)
+
+def add_review(request):
+    book = Book.objects.get(id=request.POST['review_of'])
+
+    errors = Review.objects.review_validator(request.POST)
+
+    if len(errors) > 0:
+        for key, value in errors.items():
+            messages.error(request,value)
+        return redirect(f'/book/{book.id}')
+    
+    review = Review.objects.create(
+        review = request.POST['review'],
+        rating = request.POST['rating'],
+        created_by = User.objects.get(id=request.POST['created_by']),
+        review_of = Book.objects.get(id=request.POST['review_of']),
+    )
+    return redirect(f'/book/{book.id}')
 # Create your views here.
