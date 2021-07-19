@@ -5,14 +5,14 @@ class UserManager(models.Manager):
     def basic_validator(self, postData):
         errors={}
 
-        EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-] @[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
+        EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
 
         if len(postData['first_name']) < 2:
             errors['first_name'] = 'First Name must be at least 2 characters.'
         if len(postData['last_name']) < 2:
             errors['last_name'] =  'Last Name must be at least 2 characters.'
-        if EMAIL_REGEX.match(postData['email']):
-            erros['email'] = ('Invalid Email Address')
+        if not EMAIL_REGEX.match(postData['email']):
+            errors['email'] = ('Invalid Email Address')
         if len(postData['password']) < 8:
             errors['password'] = 'Password must be at least 8 characters.'
         if postData['password'] != postData['confirm_password']:
