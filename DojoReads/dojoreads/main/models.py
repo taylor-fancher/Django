@@ -5,13 +5,13 @@ class UserManager(models.Manager):
     def user_validator(self, postData):
         errors = {}
 
-        EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-] @[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
+        EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
 
         if len(postData['name']) < 2:
             errors['name'] = 'Name must be at least 10 characters.'
         if len(postData['alias']) < 2:
             errors['alias'] =  'Alias must be at least 5 characters.'
-        if EMAIL_REGEX.match(postData['email']):
+        if not EMAIL_REGEX.match(postData['email']):
             errors['email'] = ('Invalid Email Address')
         if len(postData['password']) < 8:
             errors['password'] = 'Password must be at least 8 characters.'

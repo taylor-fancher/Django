@@ -12,4 +12,6 @@ urlpatterns = [
     path('book/<int:id>', views.one_book),
     path('add_review', views.add_review),
     path('review/<int:id>/delete', views.delete_review),
+    path('users/<int:id>', views.user),
+    path('logout', views.logout)
 ]

@@ -116,4 +116,16 @@ def delete_review(request, id):
     review = Review.objects.get(id=id)
     review.delete()
     return redirect('/dashboard')
+
+def user(request, id):
+    context = {
+        'user': User.objects.get(id=request.session['log_user_id']),
+        'this_user': User.objects.get(id=id),
+        'reviews': Review.objects.filter(created_by=User.objects.get(id=id)),
+    }
+    return render(request, 'user.html', context)
+
+def logout(request):
+    request.session.clear()
+    return redirect('/')
 # Create your views here.
