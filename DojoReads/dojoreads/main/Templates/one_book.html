@@ -24,8 +24,8 @@
                 <p>Rating: {{review.rating}}/5</p>
                 <p><a href="/users/{{review.created_by.id}}">{{review.created_by.alias}}</a> says: {{review.review}}</p>
                 <p>Posted on {{review.created_at}}</p>
-                {% if user in review.created_by.all %}
-                <a href="/book/{{book.id}}/delete"></a>
+                {% if user.id in review.created_by %}
+                <a href="/review/{{review.id}}/delete">Delete Review</a>
                 {% endif %}
                 {% endfor %}
             </div>

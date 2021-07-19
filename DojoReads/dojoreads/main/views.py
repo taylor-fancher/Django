@@ -111,4 +111,9 @@ def add_review(request):
         review_of = Book.objects.get(id=request.POST['review_of']),
     )
     return redirect(f'/book/{book.id}')
+
+def delete_review(request, id):
+    review = Review.objects.get(id=id)
+    review.delete()
+    return redirect('/dashboard')
 # Create your views here.
